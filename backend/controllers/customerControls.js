@@ -17,6 +17,11 @@ const homePostCustomerDetails = async (req, res) => {
       mobile: mobile,
       desireOrder: []
     });
+    // const checkedup=customerSchema.findOne({email:email})
+    // if (checkedup) {
+    //   return res.json({msg:"email already exists"})
+      
+    // }
     await customer.save();
     res.json({ msg: 'Thank You sir/Madam, Now choose your menu' });
   } catch (err) {

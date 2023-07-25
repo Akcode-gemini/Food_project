@@ -1,4 +1,4 @@
-import { Component, OnInit , AfterViewInit} from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
@@ -95,6 +95,20 @@ export class MenuComponent implements OnInit {
   isItemDisabled(item: MenuItem) {
     return !item.available;
   }
+
+  selectItemWithQuantMoreThanOne(): MenuItem[] {
+    const selectedItems: MenuItem[] = [];
+
+    this.categories.forEach((category) => {
+      category.items.forEach((item) => {
+        if (item.quantity > 0) {
+          selectedItems.push(item);
+        }
+      });
+    });
+    return selectedItems;
+  }
+
   orderArray: OrderItem[] = [];
   saveOrderToDB(savedOrder: OrderItem[]) {
     console.log('Order Array in save to DB: ', savedOrder);
@@ -115,16 +129,12 @@ export class MenuComponent implements OnInit {
         }
       );
   }
-  submitOrder() { 
-    const selectedItems: MenuItem[] = [];
 
-    this.categories.forEach((category) => {
-      category.items.forEach((item) => {
-        if (item.quantity > 0) {
-          selectedItems.push(item);
-        }
-      });
-    });
+
+  submitOrder() {
+    var selectedItems: MenuItem[] = [];
+
+    selectedItems = this.selectItemWithQuantMoreThanOne();
 
     const itemsWithQuantityGreaterThanOne = selectedItems.filter(
       (item) => item.quantity > 0
@@ -139,23 +149,21 @@ export class MenuComponent implements OnInit {
       });
     });
     console.log('Order created', orderArray);
-    this.saveOrderToDB(orderArray);
+    if (orderArray.length > 0) {
+      this.saveOrderToDB(orderArray);
+    } else {
+      this.toastr.error('Choose Any Item First');
+    }
   }
   goToPreview() {
     this.router.navigate(['/customer/preview'], {
       queryParams: { id: this.id },
     });
   }
-  selectedItem(){
-    const selectedItems: MenuItem[] = [];
+  selectedItem() {
+    var selectedItems: MenuItem[] = [];
 
-    this.categories.forEach((category) => {
-      category.items.forEach((item) => {
-        if (item.quantity > 0) {
-          selectedItems.push(item);
-        }
-      });
-    });
+    selectedItems = this.selectItemWithQuantMoreThanOne();
 
     const itemsWithQuantityGreaterThanOne = selectedItems.filter(
       (item) => item.quantity > 0
@@ -170,7 +178,6 @@ export class MenuComponent implements OnInit {
       });
     });
     console.log('Order Summary', this.orderSummary);
-    // console.log("helooooo")
-  }
 
+  }
 }

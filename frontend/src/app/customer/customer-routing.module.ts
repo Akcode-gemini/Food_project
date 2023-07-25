@@ -5,13 +5,13 @@ import { MenuComponent } from './menu/menu.component';
 import { PreviewComponent } from './preview/preview.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
+import { AuthGuard } from './customer.auth';
 
 const routes: Routes = [
-  { path: 'welcome/:id', component: WelcomeComponent },
-  { path: 'menu', component: MenuComponent },
+  { path: 'menu', component: MenuComponent ,canActivate:[AuthGuard]},
   { path: 'detail', component: DetailComponent },
-  { path: 'preview', component: PreviewComponent },
-  { path: 'thank-you', component: ThankYouComponent }
+  { path: 'preview', component: PreviewComponent ,canActivate:[AuthGuard]},
+  { path: 'thank-you', component: ThankYouComponent,canActivate:[AuthGuard] }
 
 ];
 

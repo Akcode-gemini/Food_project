@@ -80,6 +80,11 @@
   opacity: 1;
 }
 
+.orderSummaryButton{
+  position: fixed;
+  top:20px;
+  left: 50px;
+}
 .tableButtonContainer {
   margin-top: 20px;
   margin-bottom: 20px;

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { AuthGuard } from './customer.auth';
 
 import { ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -21,6 +21,7 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
     PreviewComponent,
     ThankYouComponent
   ],
+  providers:[AuthGuard],
   imports: [
     CommonModule,
     CustomerRoutingModule,

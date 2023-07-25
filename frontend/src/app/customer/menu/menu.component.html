@@ -1,5 +1,5 @@
 <div class="background"></div>
-<div class="container">
+<div class="container mainContainer">
   <h2 class="text-center menuText">Menu</h2>
 
 
@@ -55,20 +55,16 @@
         </div>
       </div>
     </div>
-    <div class="selectedItem">
-
-    </div>
 
     <div>
-
       <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
         aria-labelledby="offcanvasExampleLabel">
-        <div class="orderSummaryContainer" *ngIf="orderSummary.length>0">
+        <div class="orderSummaryContainer">
           <div class="offcanvas-header">
             <div *ngIf="orderSummary.length==0">
               <h2>No Order Selected</h2>
             </div>
-            <h2>Order Summary</h2>
+            <h2 *ngIf="orderSummary.length>0">Order Summary</h2>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
@@ -91,20 +87,20 @@
               </tbody>
             </table>
           </div>
+          <div class="offcanvas-footer">
+            <button class="btn btn-primary mt-2 p-3" (click)="submitOrder()">Submit Order</button>&nbsp;          </div>
         </div>
       </div>
 
 
-      <div class="d-grid gap-2">
-        <div class="footer">
-          <button class="btn btn-primary mt-2" (click)="submitOrder()">Submit Order</button>&nbsp;
-          <button class="btn btn-primary mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-            aria-controls="offcanvasExample">
-            Order Summary
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 
+</div>
+
+<div class="orderSummaryButton">
+  <button class="btn btn-primary mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+    aria-controls="offcanvasExample">
+    Order Summary
+  </button>
 </div>

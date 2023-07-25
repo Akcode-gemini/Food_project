@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthGuard } from '../customer/customer.auth';
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -13,7 +14,8 @@ export class LandingPageComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private auth:AuthGuard
   ) {}
 
   ngOnInit() {
@@ -28,6 +30,7 @@ export class LandingPageComponent implements OnInit {
 
   goToCustomer() {
     if (this.form.valid) {
+      this.auth.isDetailSubmit=false 
       this.toastr.success('Welcome to the restaurant');
       this.router.navigate([`customer/detail`], { queryParams: { id: this.idControl.value } });
     } else {

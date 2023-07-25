@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { AuthGuard } from '../customer.auth';
 
 @Component({
   selector: 'app-detail',
@@ -17,9 +18,11 @@ export class DetailComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private auth:AuthGuard
   ) {}
-
+//activated url is used to get id from params from activate url
+//Router is used to navigate from one page to another and is to push id in next page url as query params
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.id = params['id'];
@@ -48,7 +51,7 @@ export class DetailComponent implements OnInit {
     return null;
   }
 
-  // Rest of the component code
+
 
 
   onSubmit() {
@@ -67,6 +70,7 @@ export class DetailComponent implements OnInit {
         .subscribe(
           (response) => {
             console.log(response);
+            this.auth.isDetailSubmit=true;
             this.toastr.success('Detail Saved Successfully');
             this.goToMenu();
             this.form.reset();
@@ -76,7 +80,7 @@ export class DetailComponent implements OnInit {
           }
         );
 
-      // Reset the form fields after submission if needed
+
 
     } else {
       this.toastr.error("Enter valid Details")
