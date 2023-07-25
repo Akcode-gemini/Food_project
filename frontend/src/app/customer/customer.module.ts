@@ -6,7 +6,7 @@ import { ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CustomerRoutingModule } from './customer-routing.module';
-import { WelcomeComponent } from './welcome/welcome.component';
+
 import { DetailComponent } from './detail/detail.component';
 import { MenuComponent } from './menu/menu.component';
 import { PreviewComponent } from './preview/preview.component';
@@ -15,7 +15,6 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
 
 @NgModule({
   declarations: [
-    WelcomeComponent,
     DetailComponent,
     MenuComponent,
     PreviewComponent,

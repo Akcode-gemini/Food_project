@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { DetailComponent } from './detail/detail.component';
 import { MenuComponent } from './menu/menu.component';
 import { PreviewComponent } from './preview/preview.component';
-import { WelcomeComponent } from './welcome/welcome.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 import { AuthGuard } from './customer.auth';
 
