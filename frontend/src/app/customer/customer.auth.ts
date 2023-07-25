@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  isDetailSubmit = false;
+  isDetailSubmit = true;
 
 
   constructor(private router: Router ,private toastr:ToastrService) {}
