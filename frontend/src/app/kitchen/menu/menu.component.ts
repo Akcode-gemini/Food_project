@@ -13,7 +13,7 @@ export class MenuComponent implements OnInit {
   allMenu!: any;
   selectedItem: any; // New property to hold the selected menu item
   updateOrAddNew: string = 'Add Item';
-  toastMessage: { title: string; message: string; type: 'success' | 'error' } | null = null;
+
   constructor(
     private http: HttpClient,
     private formBuilder: FormBuilder,
@@ -49,7 +49,7 @@ export class MenuComponent implements OnInit {
     this.updateOrAddNew = 'Update Item';
     // Set the selected menu item and populate the form
     this.selectedItem = menu;
-    this.form.patchValue({
+    this.form.patchValue({// to fill form from existing value
       name: menu.name,
       price: menu.price,
       category: menu.category,
@@ -74,9 +74,8 @@ export class MenuComponent implements OnInit {
   }
 
   onSubmit() {
-    // Perform API request to update the selected menu item
+    // API request to update the selected menu item
     if (this.selectedItem) {
-      // Make sure you adjust the endpoint and payload according to your API requirements
       const updateEndpoint = `http://localhost:9000/kitchen/update/${this.selectedItem._id}`;
       const updatePayload = {
         name: this.form.value.name,

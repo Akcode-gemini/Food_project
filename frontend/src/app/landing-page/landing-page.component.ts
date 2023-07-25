@@ -30,7 +30,7 @@ export class LandingPageComponent implements OnInit {
 
   goToCustomer() {
     if (this.form.valid) {
-      this.auth.isDetailSubmit=false 
+      this.auth.isDetailSubmit=false
       this.toastr.success('Welcome to the restaurant');
       this.router.navigate([`customer/detail`], { queryParams: { id: this.idControl.value } });
     } else {

@@ -69,14 +69,19 @@ export class DetailComponent implements OnInit {
         )
         .subscribe(
           (response) => {
+            if(response){
             console.log(response);
             this.auth.isDetailSubmit=true;
             this.toastr.success('Detail Saved Successfully');
             this.goToMenu();
+          }
+          else{
+            this.toastr.error("Email already used")
             this.form.reset();
-          },
-          (error) => {
-            console.log(error);
+          }
+        },
+        (error) => {
+          console.log(error);
           }
         );
 

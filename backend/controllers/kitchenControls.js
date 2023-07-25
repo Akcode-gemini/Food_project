@@ -52,8 +52,7 @@ const loginAdmin = async (req, res) => {
     if (adminPassword !== admin.adminPassword) {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
-
-    res.json({
+      res.json({
       admin: {
         id: admin.id,
         adminName: admin.adminName,
