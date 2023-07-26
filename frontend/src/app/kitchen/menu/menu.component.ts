@@ -66,6 +66,7 @@ export class MenuComponent implements OnInit {
       category: menu.category,
       available: menu.available,
     });
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   deleteFoodItem(foodID: any) {
@@ -96,7 +97,7 @@ export class MenuComponent implements OnInit {
         available: this.form.value.available,
       };
 
-      this.http.post(updateEndpoint, updatePayload).subscribe(
+      this.http.patch(updateEndpoint, updatePayload).subscribe(
         (response) => {
           console.log('Menu item updated successfully.');
           this.toastr.success('Menu item updated successfully.');

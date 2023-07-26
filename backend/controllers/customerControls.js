@@ -115,7 +115,7 @@ const sendMail = async (req, res) => {
       let totalAmount = 0;
 
       for (const item of food) {
-        const itemTotal = item.quant * item.price;
+        const itemTotal = item.quantity * item.price;
         totalAmount += itemTotal;
         mailBody += `${item.name} - Quantity: ${item.quantity}, Price: RS.${item.price}\n`;
       }

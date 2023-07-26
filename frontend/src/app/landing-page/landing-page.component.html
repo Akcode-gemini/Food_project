@@ -8,7 +8,7 @@
     <h2 class="text-center rolesText">Customer</h2>
     <form [formGroup]="form">
       <div class="form-group">
-        <input type="number" formControlName="id" placeholder="Enter ID" class="form-control mb-3" />
+        <input type="text" formControlName="id" placeholder="Enter ID" class="form-control mb-3" />
         <div *ngIf="idControl.invalid && (idControl.dirty || idControl.touched)" class="text-danger">
           <div *ngIf="idControl.errors?.required">ID is required.</div>
           <div *ngIf="idControl.errors?.pattern">Invalid ID. Please enter a valid numeric value.</div>
