@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -13,12 +14,13 @@ export class MenuComponent implements OnInit {
   allMenu!: any;
   selectedItem: any; // New property to hold the selected menu item
   updateOrAddNew: string = 'Add Item';
-
+  toastMessage: { title: string; message: string; type: 'success' | 'error' } | null = null;
   constructor(
     private http: HttpClient,
     private formBuilder: FormBuilder,
     private route: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -31,7 +33,16 @@ export class MenuComponent implements OnInit {
 
     this.fetchMenu();
   }
-
+  openModal(content: any) {
+    const modalRef = this.modalService.open(content, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+  }
+  addItem() {
+    this.updateOrAddNew = 'Add Item';
+    this.resetForm();
+  }
   fetchMenu() {
     this.http.get('http://localhost:9000/kitchen/getmenu').subscribe(
       (response) => {
@@ -49,7 +60,7 @@ export class MenuComponent implements OnInit {
     this.updateOrAddNew = 'Update Item';
     // Set the selected menu item and populate the form
     this.selectedItem = menu;
-    this.form.patchValue({// to fill form from existing value
+    this.form.patchValue({
       name: menu.name,
       price: menu.price,
       category: menu.category,
@@ -74,8 +85,9 @@ export class MenuComponent implements OnInit {
   }
 
   onSubmit() {
-    // API request to update the selected menu item
+    // Perform API request to update the selected menu item
     if (this.selectedItem) {
+      // Make sure you adjust the endpoint and payload according to your API requirements
       const updateEndpoint = `http://localhost:9000/kitchen/update/${this.selectedItem._id}`;
       const updatePayload = {
         name: this.form.value.name,
@@ -92,11 +104,16 @@ export class MenuComponent implements OnInit {
           this.resetForm(); // Reset the form
         },
         (error) => {
+
           console.log('Error updating menu item:', error);
         }
       );
     }
     else{
+      if (this.form.invalid) {
+        this.toastr.error('Error in adding menu item.');
+        return;
+      }
       this.http.post("http://localhost:9000/kitchen/addmenu/",{
           name :this.form.value.name,
           price:this.form.value.price,
@@ -106,6 +123,7 @@ export class MenuComponent implements OnInit {
       .subscribe(
         (response)=>{
           console.log(response)
+
           console.log("Item Added Successfully")
           this.toastr.success('Menu item added successfully.');
           this.fetchMenu(); // Fetch the updated menu items

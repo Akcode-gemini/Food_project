@@ -79,7 +79,7 @@ export class PreviewComponent {
         (response) => {
           console.log('response data', response);
           this.toastr.warning('Order Cancelled');
-          this.router.navigate([`/customer/welcome/${this.id}`]);
+          this.router.navigate(['']);
         },
         (error) => {
           console.log(error);
@@ -89,9 +89,21 @@ export class PreviewComponent {
   }
   confirmOrder() {
     this.toastr.success('Order Saved Successfully');
+    this.http.post(`http://localhost:9000/customer/sendMail/${this.id}`,{
+      food:this.previewData.desireOrder
+    })
+    .subscribe(
+      (response)=>{
+        console.log(response)
+      },
+      (error)=>{
+        console.log(error)
+      }
+    )
     this.router.navigate([`/customer/thank-you/`], {
       queryParams: { id: this.id },
     });
+
   }
   totalQuantity() {
     let total = 0;

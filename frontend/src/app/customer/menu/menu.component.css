@@ -122,3 +122,7 @@ th {
   text-align: center;
   z-index:1;
 }
+.offcanvas-body {
+  max-height: 400px; /* Set a fixed height for the offcanvas body */
+  overflow-y: auto; /* Enable vertical scrolling */
+}

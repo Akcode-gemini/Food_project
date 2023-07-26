@@ -7,15 +7,14 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
 import { AuthGuard } from './customer.auth';
 
 const routes: Routes = [
-  { path: 'menu', component: MenuComponent ,canActivate:[AuthGuard]},
-  { path: 'detail', component: DetailComponent },
-  { path: 'preview', component: PreviewComponent ,canActivate:[AuthGuard]},
-  { path: 'thank-you', component: ThankYouComponent,canActivate:[AuthGuard] }
-
+  { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] },
+  { path: 'detail', component: DetailComponent},
+  { path: 'preview', component: PreviewComponent, canActivate: [AuthGuard] },
+  { path: 'thank-you', component: ThankYouComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CustomerRoutingModule { }
+export class CustomerRoutingModule {}

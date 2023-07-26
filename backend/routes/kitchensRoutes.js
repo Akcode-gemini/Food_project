@@ -21,7 +21,7 @@ router.post('/register', registerAdmin)
 //use:kitchen/login
 router.post('/login', loginAdmin)
 //to:to fetch all orders
-//use:kitchen/dahboard
+//use:kitchen/dashboard 
 router.get('/home', getAllCustomers)
 //to:to read menu for menu management
 //use:kitchen/menu

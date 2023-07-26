@@ -1,6 +1,13 @@
 const customerSchema = require('../models/schema');
 const menuSchema = require('../models/menu');
-
+const nodemailer = require('nodemailer')
+let transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'aaliyakhanam158@gmail.com',
+    pass: "xbebpziqaylfdsbo"
+  }
+})
 const handleError = (res, error) => {
   console.log("Error:", error);
   res.status(500).json({ error: "Internal Server Error" });
@@ -17,11 +24,13 @@ const homePostCustomerDetails = async (req, res) => {
       mobile: mobile,
       desireOrder: []
     });
-    const checkedup=await customerSchema.findOne({email:email})
-    if (checkedup) {
+
+    const checkDup = await customerSchema.findOne({ email: email })
+    if (checkDup) {
+      console.log(checkDup)
       return res.json()
-      
     }
+
     await customer.save();
     res.json({ msg: 'Thank You sir/Madam, Now choose your menu' });
   } catch (err) {
@@ -61,7 +70,7 @@ const placeOrderFromMenu = async (req, res) => {
     }
   } catch (err) {
     handleError(res, err);
-  } 
+  }
 };
 
 const previewOrder = async (req, res) => {
@@ -92,10 +101,56 @@ const deleteCustomer = async (req, res) => {
   }
 };
 
+const sendMail = async (req, res) => {
+  try {
+    const table = req.params.id;
+    let { food } = req.body;
+    console.log("entered sendMail");
+    const customerData = await customerSchema.findOne({ tableID: table });
+    console.log(customerData);
+    if (customerData) {
+      const customerEmail = customerData.email;
+      console.log(customerEmail);
+      let mailBody = `Food Ordered from Table Id: ${table}\n\n`;
+      let totalAmount = 0;
+
+      for (const item of food) {
+        const itemTotal = item.quant * item.price;
+        totalAmount += itemTotal;
+        mailBody += `${item.name} - Quantity: ${item.quantity}, Price: RS.${item.price}\n`;
+      }
+
+      mailBody += `\nTotal Amount: RS. ${totalAmount}\n`;
+
+      let mailOptions = {
+        from: "aaliyakhanam158@gmail.com",
+        to: customerEmail,
+        subject: "Food Ordered from Table Id: " + table,
+        text: mailBody,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log("Error Occurred" + error);
+        } else {
+          console.log("Email Sent To:" + mailOptions.to, info.response);
+        }
+      });
+
+      res.json({ msg: "Mail Sent Successfully" });
+    } else {
+      res.status(400).json({ msg: "Error While Sending Mail" });
+    }
+  } catch (err) {
+    handleError(res, err);
+  }
+};
+
 module.exports = {
   homePostCustomerDetails,
   getMenu,
   placeOrderFromMenu,
   previewOrder,
   deleteCustomer,
+  sendMail
 };

@@ -7,6 +7,7 @@ const {
     placeOrderFromMenu,
     previewOrder,
     deleteCustomer,
+    sendMail
 } = require('../controllers/customerControls')
 router.use(express.json())
 
@@ -28,5 +29,8 @@ router.get('/preview/tableNo=:id', previewOrder)
 //use 1:customer/preview
 //use 2:kitchen/order 
 router.delete('/delete/tableNo=:id', deleteCustomer)
+//to:to send mail using nodemailer
+//use:customer/preview
+router.post('/sendMail/:id',sendMail)
 
 module.exports = router
