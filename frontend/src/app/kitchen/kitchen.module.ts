@@ -12,20 +12,17 @@ import { AuthGuard } from './auth.guard';
 @NgModule({
   declarations: [
     LoginComponent,
-
     DashboardComponent,
     OrderComponent,
     MenuComponent,
-
-
   ],
-  providers:[AuthGuard],
+  providers: [AuthGuard],
   imports: [
     CommonModule,
     KitchenRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-  ]
+  ],
 })
-export class KitchenModule { }
+export class KitchenModule {}

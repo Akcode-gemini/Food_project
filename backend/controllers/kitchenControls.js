@@ -147,7 +147,6 @@ const deleteMenu = async (req, res) => {
 
 const orderStatus = async (req, res) => {
   try {
-    console.log("hello");
     const tableID = req.params.id;
     console.log(tableID);
     const data = await customerSchema.findOne({ tableID: tableID });
