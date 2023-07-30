@@ -1,11 +1,12 @@
 const customerSchema = require('../models/schema');
+require('dotenv').config();
 const menuSchema = require('../models/menu');
 const nodemailer = require('nodemailer')
 let transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'aaliyakhanam158@gmail.com',
-    pass: "xbebpziqaylfdsbo"
+    pass: process.env.PASSKEY
   }
 })
 const handleError = (res, error) => {
