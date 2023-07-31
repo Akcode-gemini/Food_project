@@ -1,12 +1,12 @@
+require('dotenv').config()
 const customerSchema = require('../models/schema');
-require('dotenv').config();
 const menuSchema = require('../models/menu');
 const nodemailer = require('nodemailer')
 let transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: process.env.NODEMAILER_SERVICE,
   auth: {
-    user: 'aaliyakhanam158@gmail.com',
-    pass: process.env.PASSKEY
+    user: process.env.NODEMAILER_USER,
+    pass: process.env.NODEMAILER_PASS
   }
 })
 const handleError = (res, error) => {
@@ -105,7 +105,7 @@ const deleteCustomer = async (req, res) => {
 const sendMail = async (req, res) => {
   try {
     const table = req.params.id;
-    let { food } = req.body;
+    let { total, food } = req.body;
     console.log("entered sendMail");
     const customerData = await customerSchema.findOne({ tableID: table });
     console.log(customerData);
@@ -116,15 +116,15 @@ const sendMail = async (req, res) => {
       let totalAmount = 0;
 
       for (const item of food) {
-        const itemTotal = item.quantity * item.price;
+        const itemTotal = item.quant * item.price;
         totalAmount += itemTotal;
         mailBody += `${item.name} - Quantity: ${item.quantity}, Price: RS.${item.price}\n`;
       }
 
-      mailBody += `\nTotal Amount: RS. ${totalAmount}\n`;
+      mailBody += `\nTotal Amount: RS. ${total}\n`;
 
       let mailOptions = {
-        from: "aaliyakhanam158@gmail.com",
+        from: process.env.NODEMAILER_FROM_EMAIL,
         to: customerEmail,
         subject: "Food Ordered from Table Id: " + table,
         text: mailBody,
