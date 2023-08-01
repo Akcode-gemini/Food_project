@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
 
-// Export routes
+// Import routes
 const customerRoutes = require('./routes/customersRoutes');
 const kitchenRoutes = require('./routes/kitchensRoutes');
 
