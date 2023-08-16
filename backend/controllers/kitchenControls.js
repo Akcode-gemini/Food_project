@@ -1,7 +1,6 @@
 const customerSchema = require('../models/schema');
 const menuSchema = require('../models/menu');
 const adminSchema = require('../models/adminSchema');
-const { patch } = require('../routes/customersRoutes');
 
 const registerAdmin = async (req, res) => {
   try {
@@ -30,7 +29,6 @@ const registerAdmin = async (req, res) => {
     const savedAdmin = await newAdmin.save();
     res.json({ newAdmin: savedAdmin });
   } catch (err) {
-    console.log("Error:", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -61,7 +59,6 @@ const loginAdmin = async (req, res) => {
       }
     });
   } catch (err) {
-    console.log("Error:", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -71,7 +68,6 @@ const fetchMenu = async (req, res) => {
     const menu = await menuSchema.find({});
     res.json(menu);
   } catch (err) {
-    console.log("Error:", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -81,7 +77,6 @@ const getAllCustomers = async (req, res) => {
     const orders = await customerSchema.find({});
     res.json(orders);
   } catch (err) {
-    console.log("Error:", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -97,10 +92,8 @@ const addmenu = async (req, res) => {
     });
 
     const savedMenu = await newMenu.save();
-    console.log("Item Added");
     res.json({ msg: savedMenu });
   } catch (err) {
-    console.log("Error:", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -108,7 +101,6 @@ const addmenu = async (req, res) => {
 const updatemenu = async (req, res) => {
   try {
     const foodID = req.params.id;
-    console.log(foodID);
     const { name, price, category, available } = req.body;
     const menu = await menuSchema.findOne({ _id: foodID });
 
@@ -123,14 +115,12 @@ const updatemenu = async (req, res) => {
       return res.status(404).json({ msg: 'Menu not found' });
     }
   } catch (err) {
-    console.log("Error:", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
 const deleteMenu = async (req, res) => {
   try {
-    console.log("Table ID", req.params.id);
     const foodID = req.params.id;
     const deletedMenu = await menuSchema.findOneAndDelete({ _id: foodID });
 
@@ -140,7 +130,6 @@ const deleteMenu = async (req, res) => {
       return res.status(404).json({ msg: 'Menu not found' });
     }
   } catch (err) {
-    console.log("Error:", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -148,7 +137,6 @@ const deleteMenu = async (req, res) => {
 const orderStatus = async (req, res) => {
   try {
     const tableID = req.params.id;
-    console.log(tableID);
     const data = await customerSchema.findOne({ tableID: tableID });
 
     if (!data) {
@@ -159,7 +147,6 @@ const orderStatus = async (req, res) => {
     const updatedData = await data.save();
     res.json({ msg: updatedData });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ error: 'Internal server error' });
   }
 };

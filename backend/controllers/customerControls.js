@@ -3,14 +3,13 @@ require('dotenv').config();
 const menuSchema = require('../models/menu');
 const nodemailer = require('nodemailer')
 let transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: process.env.NODEMAILER_SERVICE,
   auth: {
-    user: 'aaliyakhanam158@gmail.com',
-    pass: process.env.PASSKEY
+    user: process.env.NODEMAILER_USER,
+    pass: process.env.NODEMAILER_PASS
   }
 })
 const handleError = (res, error) => {
-  console.log("Error:", error);
   res.status(500).json({ error: "Internal Server Error" });
 };
 
@@ -28,10 +27,8 @@ const homePostCustomerDetails = async (req, res) => {
 
     const checkDup = await customerSchema.findOne({ email: email })
     if (checkDup) {
-      console.log(checkDup)
       return res.json()
     }
-
     await customer.save();
     res.json({ msg: 'Thank You sir/Madam, Now choose your menu' });
   } catch (err) {
@@ -51,9 +48,7 @@ const getMenu = async (req, res) => {
 const placeOrderFromMenu = async (req, res) => {
   try {
     const table = req.params.id;
-    console.log("Table ID", table);
     const desireOrder = req.body;
-    console.log("Desire Order", desireOrder);
     const customer = await customerSchema.findOne({ tableID: table });
     customer.desireOrder = []
     if (customer) {
@@ -66,7 +61,6 @@ const placeOrderFromMenu = async (req, res) => {
         customer: customer
       });
     } else {
-      console.log("Customer with this table number not found or Table is vacant");
       res.status(404).json({ error: "Customer not found or Table is vacant" });
     }
   } catch (err) {
@@ -76,7 +70,6 @@ const placeOrderFromMenu = async (req, res) => {
 
 const previewOrder = async (req, res) => {
   try {
-    console.log("Table ID", req.params.id);
     const table = req.params.id;
     const customer = await customerSchema.findOne({ tableID: table });
     if (customer)
@@ -90,7 +83,6 @@ const previewOrder = async (req, res) => {
 
 const deleteCustomer = async (req, res) => {
   try {
-    console.log("Table ID", req.params.id);
     const table = req.params.id;
     const customer = await customerSchema.findOneAndDelete({ tableID: table });
     if (customer)
@@ -106,12 +98,9 @@ const sendMail = async (req, res) => {
   try {
     const table = req.params.id;
     let { food } = req.body;
-    console.log("entered sendMail");
     const customerData = await customerSchema.findOne({ tableID: table });
-    console.log(customerData);
     if (customerData) {
       const customerEmail = customerData.email;
-      console.log(customerEmail);
       let mailBody = `Food Ordered from Table Id: ${table}\n\n`;
       let totalAmount = 0;
 
@@ -124,19 +113,13 @@ const sendMail = async (req, res) => {
       mailBody += `\nTotal Amount: RS. ${totalAmount}\n`;
 
       let mailOptions = {
-        from: "aaliyakhanam158@gmail.com",
+        from: process.env.NODEMAILER_FROM_EMAIL,
         to: customerEmail,
         subject: "Food Ordered from Table Id: " + table,
         text: mailBody,
       };
 
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.log("Error Occurred" + error);
-        } else {
-          console.log("Email Sent To:" + mailOptions.to, info.response);
-        }
-      });
+      transporter.sendMail(mailOptions, (error, info));
 
       res.json({ msg: "Mail Sent Successfully" });
     } else {
