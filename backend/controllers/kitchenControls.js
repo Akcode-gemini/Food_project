@@ -74,8 +74,8 @@ const fetchMenu = async (req, res) => {
 
 const getAllCustomers = async (req, res) => {
   try {
-    const orders = await customerSchema.find({});
-    res.json(orders);
+    const customers = await customerSchema.find({});
+    res.json(customers);
   } catch (err) {
     res.status(500).json({ error: "Internal Server Error" });
   }
