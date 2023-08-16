@@ -6,7 +6,7 @@ import { AuthGuard } from '../customer/customer.auth';
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.css']
+  styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent implements OnInit {
   form!: FormGroup;

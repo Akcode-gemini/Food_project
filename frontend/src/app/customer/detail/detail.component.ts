@@ -8,7 +8,7 @@ import { AuthGuard } from '../customer.auth';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css'],
+  styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
   id!: number;

@@ -7,7 +7,7 @@ import { takeWhile } from 'rxjs/operators';
 @Component({
   selector: 'app-thank-you',
   templateUrl: './thank-you.component.html',
-  styleUrls: ['./thank-you.component.css'],
+  styleUrls: ['./thank-you.component.scss'],
 })
 export class ThankYouComponent implements OnDestroy {
   id!: number;
