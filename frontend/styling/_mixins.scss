@@ -1,0 +1,513 @@
+@import "../styling/variable";
+$primaryColor: $lightYellow;
+$secondaryColor: $grey;
+@mixin button-styles($bg-color, $border-color, $hover-bg-color) {
+  background-color: $bg-color;
+  border-color: $border-color;
+
+  &:hover {
+    background-color: $hover-bg-color;
+    border-color: $hover-bg-color;
+  }
+}
+
+// Mixin for text shadow
+@mixin text-shadow($offset-x, $offset-y, $blur, $color) {
+  text-shadow: $offset-x $offset-y $blur $color;
+}
+
+@mixin button-style($bg-color, $text-color) {
+  background-color: $bg-color;
+  color: $text-color;
+  border-radius: 20%;
+  padding: 5px;
+
+  &:hover {
+    background-color: $text-color;
+    color: white;
+    border-radius: 20%;
+    padding: 5px;
+  }
+}
+@mixin text-shadow($offset-x, $offset-y, $blur, $color) {
+  text-shadow: $offset-x $offset-y $blur $color;
+}
+
+
+
+@mixin commonBgProperty($bgUrl,$opacity) {
+  background-image: url($bgUrl);
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: $opacity;
+}
+@mixin subCont($m_bottom) {
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto;
+  margin-bottom: $m_bottom;
+  padding: 20px;
+  border: 10px solid $primaryColor;
+  background-color: $dirtyWhite;
+  border-radius: 5px;
+  box-shadow: 0 0 50px $primaryColor;
+  h2.rolesText {
+    font-size: 2vw;
+    font-weight: bold;
+    font-family: "Montserrat", sans-serif;
+    color: $secondaryColor;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  button.large-btn {
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    background-color: $secondaryColor;
+    color: $primaryColor;
+    box-shadow: 0 0 10px $primaryColor;
+    border: 1px solid yellow;
+    margin-top: 3%;
+    border-radius: 20px;
+
+    &:hover {
+      background-color: $primaryColor;
+      color: $secondaryColor;
+      box-shadow: 0 0 10px $secondaryColor;
+      border: 1px solid $secondaryColor;
+    }
+  }
+}
+@mixin box-shadow($color) {
+  box-shadow: 0 0 10px $color;
+}
+
+
+// mixin for landing page
+@mixin landingPage {
+  @import url("https://fonts.googleapis.com/css2?family=Lugrasimo&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+
+  /* Common styles for both screen sizes */
+  .background {
+    @include commonBgProperty("../src/assets/WelcomePage.jpg",1);
+
+  }
+
+  .mainContainer {
+    margin-top: 50px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-left: 35%;
+    width: 50%;
+    justify-items: center;
+    padding: 10px;
+
+    .customerContainer {
+      @include subCont(10px);
+    }
+    .kitchenContainer {
+      @include subCont(0px);
+    }
+  }
+
+  .headingText {
+    font-size: 4.5vw;
+    font-family: "Lugrasimo", sans-serif;
+    text-shadow: 2px 2px 10px $secondaryColor;
+    color: $primaryColor;
+    margin-bottom: 5%;
+    text-align: center;
+    line-height: 1.2;
+  }
+}
+//mixin for customer module
+@mixin detailPage{
+  @import url('https://fonts.googleapis.com/css2?family=Lugrasimo&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+  .my-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: none;
+    background-color: $grey2;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .quote {
+    font-size: 3.5vw;
+    font-family: 'Lugrasimo', sans-serif;
+    text-shadow: 2px 2px 10px $secondaryColor;
+    color: $primaryColor;
+    margin-right: 20%;
+    top: 20px;
+
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .background {
+    @include commonBgProperty("../src/assets/WelcomePageInvert.jpg",1);
+
+  }
+
+  .textForm {
+    border: 10px solid $primaryColor;
+    background-color: $grey2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+    margin-left: 25%;
+    margin-top: 50px;
+    @include box-shadow($primaryColor);
+    border-radius: 20px;
+  }
+
+  .dataContainer {
+    margin-top: 20px;
+    width: fit-content;
+  }
+
+  .detailInstruction {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    color: $secondaryColor;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .tableTag {
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    color: $secondaryColor;
+    margin-top: 10px;
+  }
+
+  .textForm {
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    .tableID {
+      font-size: 2rem;
+      font-family: 'Arial', sans-serif;
+      color:$yellow2;
+      text-shadow: 2px 2px 1px $black2;
+    }
+
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      font-size: 1rem;
+      @include box-shadow($primaryColor);
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus {
+      outline: none;
+      border: 1px solid $secondaryColor;
+      @include box-shadow($secondaryColor);
+    }
+
+    button[type="submit"] {
+      font-size: 1rem;
+      width: 100%;
+      padding: 10px 20px;
+      background-color: $secondaryColor;
+      color: $primaryColor;
+      @include box-shadow($primaryColor);
+      border: 1px solid $yellow1;
+
+      &:hover {
+        background-color: $primaryColor;
+        color: $secondaryColor;
+        border: 1px solid $secondaryColor;
+      }
+    }
+  }
+  }
+
+@mixin customerMenuPage{
+  // Define variables
+$primary-color: $lightYellow;
+$secondary-color: $grey;
+$link-color: #0000ff;
+$link-hover-color: $cyan;
+$negative-color: #ff0000;
+$negative-hover-color: $dirtyRed;
+
+
+// Convert CSS to SCSS
+.text-center {
+  text-align: center;
+}
+
+.menuText {
+  font-size: 3.5rem;
+  font-family: 'Lugrasimo', sans-serif;
+  @include text-shadow(2px, 2px, 10px, $grey);
+  color: $lightYellow;
+  line-height: 1.2;
+}
+
+.categoryText {
+  font-family: 'Montserrat', sans-serif;
+  color: $lightYellow;
+  @include text-shadow(2px, 2px, 20px, $grey);
+}
+
+.input-sm {
+  border: 0px;
+  width: 1rem;
+  background-color: transparent;
+  align-items: center;
+  color: $lightYellow;
+}
+
+.buttonPlus {
+  @include button-style($blue, $white);
+}
+
+.buttonMinus {
+  @include button-style($red,$white);
+}
+
+.table {
+  margin-bottom: 20px;
+  border-collapse: separate;
+  border: 0px;
+}
+
+.categoryContainer {
+  border: 10px solid $lightYellow;
+  border-radius: 20px;
+  margin-top: 50px;
+}
+
+.background {
+  @include commonBgProperty("../src/assets/WelcomePage.jpg",1);
+}
+
+.orderSummaryButton {
+  position: fixed;
+  top: 20px;
+  left: 50px;
+}
+
+.tableButtonContainer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 50%;
+  margin-left: 40%;
+
+  .categoryContainer {
+    .categoryBackground {
+      h2.menuText {
+        font-size: 3.5rem;
+        font-family: 'Lugrasimo', sans-serif;
+        text-shadow: 2px 2px 10px $grey;
+        color: $lightYellow;
+        line-height: 1.2;
+      }
+    }
+  }
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.btn-block {
+  margin-top: 20px;
+}
+
+.table {
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  background: transparent;
+}
+
+th {
+  color: $lightYellow;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: $white;
+  color:$white;
+  text-align: center;
+  z-index: 1;
+}
+
+.offcanvas-body {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+
+
+}
+
+
+// @mixin previewPage {
+//   .bill-container {
+//     padding: 20px;
+//     background-color: $grey2;
+//     height: 700px;
+//     /* Set a fixed height */
+//     overflow-y: auto;
+//     /* Enable vertical scrolling*/
+
+//   }
+
+//   .bill-section {
+//     margin-bottom: 20px;
+//   }
+
+//   .bill-info {
+//     font-size: 16px;
+//   }
+
+//   .bill-table {
+//     font-size: 14px;
+//   }
+
+//   .bill-section:last-child {
+//     text-align: right;
+//   }
+
+//   .btn-primary {
+//     background-color: #007bff;
+//     border-color: #007bff;
+//   }
+
+//   .btn-success {
+//     background-color: #28a745;
+//     border-color: #28a745;
+//   }
+
+//   .btn-danger {
+//     background-color: #dc3545;
+//     border-color: #dc3545;
+//   }
+
+//   .btn-primary:hover,
+//   .btn-success:hover,
+//   .btn-danger:hover {
+//     background-color: $blue1;
+//     border-color: $blue1;
+//   }
+
+//   .background {
+//     @include commonBgProperty("../src/assets/WelcomePage.jpg",0.4);
+//   }
+
+// }
+
+$primary-color: #FFD98E;
+$secondary-color: #565C64;
+$link-color: #007bff;
+$link-hover-color: #0056b3;
+
+@mixin previewPage{
+.bill-container {
+  padding: 20px;
+  background-color:$grey2;
+  height: 700px; /* Set a fixed height */
+  overflow-y: auto; /* Enable vertical scrolling */
+
+  .bill-section {
+    margin-bottom: 20px;
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+
+  .bill-info {
+    font-size: 16px;
+  }
+
+  .bill-table {
+    font-size: 14px;
+  }
+}
+
+.btn-primary {
+  @include button-styles($blue3, $blue3, $blue1);
+}
+
+.btn-success {
+  @include button-styles($success-color, $success-color, $success-hover-color);
+}
+
+.btn-danger {
+  @include button-styles($danger-color, $danger-color, $danger-hover-color);
+}
+
+.background {
+  @include commonBgProperty ("../src/assets/WelcomePage.jpg",0.4);
+
+}
+}
+
+@mixin thankYouPage {
+  .thank-you-message {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: transparent;
+    opacity: 0.9;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .background {
+    @include commonBgProperty("../src/assets/WelcomePage.jpg",0.4);
+  }
+
+  .thank-you-message p {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
